@@ -77,7 +77,6 @@
     cell.screenName.text = tweet.screenName;
     cell.userImage.image = [UIImage imageNamed:@"user.png"];
 
-
     return cell;
 }
 
