@@ -10,6 +10,10 @@
 
 @implementation Tweet
 
+
+// Memoization, if the property is nil check the underlying dictionary
+
+
 - (NSString *)id_str {
     return [self.data valueOrNilForKeyPath:@"id_str"];
 }
@@ -32,6 +36,10 @@
 
 - (NSString *)profileImageUrl {
     return [self.data valueOrNilForKeyPath:@"user.profile_image_url"];
+}
+
+- (NSString *)createdAt {
+    return [self.data valueOrNilForKeyPath:@"created_at"];
 }
 
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array {

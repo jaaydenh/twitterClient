@@ -10,6 +10,7 @@
 #import "TweetCell.h"
 #import "TweetVC.h"
 #import "ComposeVC.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface TimelineVC ()
 
@@ -74,14 +75,24 @@
     Tweet *tweet = self.tweets[indexPath.row];
     cell.tweetText.text = tweet.text;
     cell.userName.text = tweet.name;
-    cell.screenName.text = tweet.screenName;
-    cell.userImage.image = [UIImage imageNamed:@"user.png"];
+    cell.screenName.text = [@"@" stringByAppendingString:tweet.screenName];
+    //[cell.createdAt.text self.formatCreatedAt:tweet.createdAt
+    
+    UIImage *defaultImage = [UIImage imageNamed:@"user.png"];
 
+    [cell.userImage setImageWithURL: [NSURL URLWithString:tweet.profileImageUrl] placeholderImage:defaultImage];
+    
     return cell;
+}
+
+- (NSString *)formatCreatedAt:(NSString *)createdAt {
+   
+    return @" ";
 }
 
 - (void)onComposeButton {
     ComposeVC *vc = [[ComposeVC alloc] init];
+
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nvc animated:YES completion:nil];
 }
@@ -125,6 +136,13 @@
     return YES;
 }
 */
+
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+     //[@"hello" sizeWithFont:[UIFont systemFontOfSize:12] forWidth:<#(CGFloat)#> lineBreakMode:<#(NSLineBreakMode)#>]
+    //    sizeWithFont
+    
+    return 150;
+}
 
 #pragma mark - Table view delegate
 

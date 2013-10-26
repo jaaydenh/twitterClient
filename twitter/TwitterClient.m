@@ -67,14 +67,8 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
 
 - (void)postTweet:(NSString *)statusText success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     
-    //NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2];
-    
-    //[params setObject:statusText forKey:@"status"];
-    
     [self postPath:@"1.1/statuses/update.json" parameters:@{ @"status":statusText } success:success failure:failure];
 }
-
-
 
 #pragma mark - Private methods
 

@@ -8,6 +8,7 @@
 
 #import "TweetVC.h"
 #import "Tweet.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface TweetVC ()
 
@@ -41,9 +42,13 @@
     self.tweetText.text = self.tweet.text;
     self.userName.text = self.tweet.name;
     
-    NSString *at = @"@";
-    self.screenName.text = [at stringByAppendingString:self.tweet.screenName];
+    self.screenName.text = [@"@" stringByAppendingString:self.tweet.screenName];
     
+    UIImage *defaultImage = [UIImage imageNamed:@"user.png"];
+    
+    [self.userImage setImageWithURL: [NSURL URLWithString:self.tweet.profileImageUrl] placeholderImage:defaultImage];
+    
+    self.createdAt.text = self.tweet.createdAt;
 }
 
 - (void)didReceiveMemoryWarning

@@ -7,8 +7,12 @@
 //
 
 #import "ComposeVC.h"
+#import "UIImageView+AFNetworking.h"
+//#import "User.h"
 
 @interface ComposeVC ()
+
+@property (nonatomic, strong) User *currentUser;
 
 @end
 
@@ -28,6 +32,20 @@
     [super viewDidLoad];
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancelButton)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Tweet" style:UIBarButtonItemStylePlain target:self action:@selector(onPostTweetButton)];
+    
+    User *user = [User currentUser];
+    
+    self.userName.text = user.name;
+
+    self.screenName.text = [@"@" stringByAppendingString:user.screenName];
+    
+    UIImage *defaultImage = [UIImage imageNamed:@"user.png"];
+    
+    [self.userImage setImageWithURL: [NSURL URLWithString:user.profileImageUrl] placeholderImage:defaultImage];
+ 
+    [self.tweetText becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,11 +57,19 @@
 - (void)onCancelButton {
 
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)onPostTweetButton {
     
-//    [self removeFromParentViewController:self];
+    [[TwitterClient instance] postTweet:self.tweetText.text success:^(AFHTTPRequestOperation *operation, id response) {
+        NSLog(@"%@", response);
+        //self.tweets = [Tweet tweetsWithArray:response];
+        //[self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+    }];
     
-  //  UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-    //[self presentViewController:nvc animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -16,5 +16,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *screenName;
 @property (weak, nonatomic) IBOutlet UILabel *tweetText;
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
-
+@property (weak, nonatomic) IBOutlet UILabel *createdAt;
 @end
