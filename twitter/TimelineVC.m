@@ -11,6 +11,7 @@
 #import "TweetVC.h"
 #import "ComposeVC.h"
 #import "UIImageView+AFNetworking.h"
+#import "ViewHelper.h"
 
 @interface TimelineVC ()
 
@@ -76,7 +77,7 @@
     cell.tweetText.text = tweet.text;
     cell.userName.text = tweet.name;
     cell.screenName.text = [@"@" stringByAppendingString:tweet.screenName];
-    //[cell.createdAt.text self.formatCreatedAt:tweet.createdAt
+    cell.createdAt.text  = [ViewHelper fuzzyTime: tweet.createdAt];
     
     UIImage *defaultImage = [UIImage imageNamed:@"user.png"];
 

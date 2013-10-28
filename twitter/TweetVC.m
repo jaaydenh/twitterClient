@@ -48,7 +48,15 @@
     
     [self.userImage setImageWithURL: [NSURL URLWithString:self.tweet.profileImageUrl] placeholderImage:defaultImage];
     
-    self.createdAt.text = self.tweet.createdAt;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [formatter setTimeZone:gmt];
+    NSDate *date = [formatter dateFromString:self.tweet.createdAt];
+    
+    self.createdAt.text = [NSDateFormatter localizedStringFromDate:date
+                                                         dateStyle:NSDateFormatterShortStyle
+                                                         timeStyle:NSDateFormatterShortStyle];
 }
 
 - (void)didReceiveMemoryWarning
